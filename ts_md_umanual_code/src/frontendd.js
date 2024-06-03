@@ -5,8 +5,10 @@ console.log("hello world! js");
 //   contents.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/,"")
 // );
 
-document.getElementById('text field').innerHTML =
-  marked.parse('# "Insert website name" User manual\n\nRendered by **marked**.');
+// let textfield = document.getElementById('text field').value
+
+// document.getElementById('text field').innerHTML =
+// marked.parse('# Marked in the browser\n\nRendered by **marked**.');
 
 async function bgetusers() {
     const response = await fetch("/usersrawjson");
@@ -23,7 +25,8 @@ bgetusers()
 function updateIframe() {
   var text = document.getElementById('text field').value;
   var iframe = document.getElementById('outputFrame');
+
   iframe.contentWindow.document.open();
-  iframe.contentWindow.document.write(text);
+  iframe.contentWindow.document.write(marked.parse(text));
   iframe.contentWindow.document.close();
 }
