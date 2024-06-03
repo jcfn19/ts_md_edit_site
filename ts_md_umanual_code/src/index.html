@@ -10,18 +10,22 @@
 </head>
 <body>
     <!--man skal kun se edit og preview når man trykker på edit-->
-    <button id="editbtn">edit</button>
-    <button onclick="updateIframe()">preview</button>
-    <!--same as preview/what users see-->
-    <div class="containers">
-        <div class="container">
-            <!--edit field-->
-            <textarea id="text field"></textarea>
-        </div>
-        <div class="container">
-            <!-- preview. will use iframe to get preview from edit-->
-            <iframe id="outputFrame"></iframe>
+    <button id="editbtn" onclick="editf()">edit</button>
+    <div id="editcontents">
+        <button onclick="updateIframe()">preview</button>
+        <button onclick="savechangesf()">save changes</button>
+        <div class="containers">
+            <div class="container">
+                <!--edit field-->
+                <textarea id="text field"></textarea>
+            </div>
+            <div class="container">
+                <!-- preview field-->
+                <iframe id="outputFrame"></iframe>
+            </div>
         </div>
     </div>
+    <div id="contents"></div>
+    
 </body>
 </html>
