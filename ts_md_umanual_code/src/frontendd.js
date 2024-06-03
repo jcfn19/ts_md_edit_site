@@ -5,29 +5,37 @@ console.log("hello world! js");
 //   contents.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/,"")
 // );
 
-// let textfield = document.getElementById('text field').value
+// async function bgetusers() {
+//   const response = await fetch("/usersrawjson");
+//   const data = await response.json();
+//   console.log(data);
 
-// document.getElementById('text field').innerHTML =
-// marked.parse('# Marked in the browser\n\nRendered by **marked**.');
+//   let testuser = data[0].uname;
+//   console.log(testuser);
+//   // hvis user som er logget inn sinn rolle er admin, tillat å edite siden
+// }
 
-async function bgetusers() {
+// bgetusers()
+
+async function editf(){
   const response = await fetch("/usersrawjson");
   const data = await response.json();
   console.log(data);
 
   let testuser = data[0].uname;
   console.log(testuser);
-  // hvis user som er logget inn sinn rolle er admin, tillat å edite siden
-}
 
-bgetusers()
-
-function editf(){
-  var x = document.getElementById("editcontents");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].uuserrole == admin) {
+      var x = document.getElementById("editcontents");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    } else {
+      return console.log("Invalid role: " + data[i].uuserrole);
+    }
   }
 }
 
