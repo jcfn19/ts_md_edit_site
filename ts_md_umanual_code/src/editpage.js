@@ -26,7 +26,7 @@ async function editf(){
   console.log(testuser);
 
   for (let i = 0; i < data.length; i++) {
-    if (data[i].uuserrole == admin) {
+    if (data[i].uuserrole == "admin") {
       var x = document.getElementById("editcontents");
       if (x.style.display === "none") {
         x.style.display = "block";

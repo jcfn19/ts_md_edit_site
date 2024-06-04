@@ -4,28 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="index.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="frontendd.js" defer></script>
 </head>
 <body>
-    <!--man skal kun se edit og preview når man trykker på edit-->
-    <button id="editbtn" onclick="editf()">edit</button>
-    <div id="editcontents" style="display: none;">
-        <button onclick="updateIframe()">preview</button>
-        <button onclick="savechangesf()">save changes</button>
-        <div class="containers">
-            <div class="container">
-                <!--edit field-->
-                <textarea id="text field"></textarea>
-            </div>
-            <div class="container">
-                <!-- preview field-->
-                <iframe id="outputFrame"></iframe>
-            </div>
-        </div>
+    <div>
+        <p>login</p>
+        <form action="/flogin" method="POST">
+            <input type="text" name="lusername" placeholder="username" required>
+            <input type="password" name="lpassword" placeholder="password" required>
+            <button type="submit">login</button>
+        </form>
     </div>
-    <div id="contents"></div>
-    
 </body>
 </html>

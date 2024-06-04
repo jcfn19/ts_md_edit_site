@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="editpage.js" defer></script>
+</head>
+<body>
+    <button id="editbtn" onclick="editf()">edit</button>
+    <div id="editcontents" style="display: none;">
+        <button onclick="updateIframe()">preview</button>
+        <button onclick="savechangesf()">save changes</button>
+        <div class="containers">
+            <div class="container">
+                <textarea id="text field"></textarea>
+            </div>
+            <div class="container">
+                <iframe id="outputFrame"></iframe>
+            </div>
+        </div>
+    </div>
+    <div id="contents"></div>
+</body>
+</html>
