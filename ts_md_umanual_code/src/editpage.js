@@ -1,22 +1,5 @@
 console.log("hello world! js");
 
-// remove the most common zerowidth characters from the start of the file
-// marked.parse(
-//   contents.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/,"")
-// );
-
-// async function bgetusers() {
-//   const response = await fetch("/usersrawjson");
-//   const data = await response.json();
-//   console.log(data);
-
-//   let testuser = data[0].uname;
-//   console.log(testuser);
-//   // hvis user som er logget inn sinn rolle er admin, tillat å edite siden
-// }
-
-// bgetusers()
-
 async function editf(){
   const response = await fetch("/userroleraw");
   const data = await response.json();

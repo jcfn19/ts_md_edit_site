@@ -30,6 +30,7 @@ const publicDirectoryPath = path.join(__dirname, "../src")
 app.use(express.static(publicDirectoryPath))
 app.use(express.static(path.join(__dirname, '../dist')));
 
+// form handler for the login
 function formhandlerlog(request, response) {
     const bsql = db.prepare('SELECT * FROM users WHERE users.uname = ?')
     const row: any = bsql.get(request.body.lusername);
@@ -61,6 +62,7 @@ function formhandlerlog(request, response) {
 
 app.post('/flogin', formhandlerlog);
 
+// checks if the user is logged in and sends the users role to editpage.js
 function rootRouterole(request, response) {
     if (request.session.logedin!== true) {
         response.redirect("/index.html")
@@ -73,17 +75,6 @@ function rootRouterole(request, response) {
 }
 
 app.get('/userroleraw', rootRouterole)
-
-// app.get('/session-data', (request, response) => {
-//     if (request.session.logedin!== true) {
-//         response.redirect("/index.html")
-//         return;
-//     } else if (request.session.lrole) {
-//       response.json(request.session.lrole);
-//     } else {
-//       response.json({ message: 'No session data' });
-//     }
-// });
 
 app.listen(3000, () => {
     console.log('Server is up on port 3000')
