@@ -22,7 +22,7 @@ async function editf(){
   const data = await response.json();
   console.log(data);
 
-  if (data.value == "admin") {
+  if (data == "admin") {
     var x = document.getElementById("editcontents");
     if (x.style.display === "none") {
       x.style.display = "block";
@@ -30,7 +30,7 @@ async function editf(){
       x.style.display = "none";
     }
   } else {
-    return console.log("Invalid role: " + data.value);
+    return console.log("Invalid role: " + data);
   }
 }
 
