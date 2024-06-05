@@ -40,6 +40,7 @@ function formhandlerlog(request, response) {
         if (request.body.lpassword == row.upassword) {
             request.session.logedin = true;
             request.session.lpassword = row.password;
+            request.session.lrole = row.uuserrole;
             response.redirect("/userguide.html");
         }
         else {
@@ -57,13 +58,24 @@ function rootRouterole(request, response) {
         response.redirect("/index.html");
         return;
     }
+    else if (request.session.lrole) {
+        response.json(request.session.lrole);
+    }
     else {
-        const sql = db.prepare('SELECT * FROM users WHERE user.uuserrole');
-        const info = sql.all();
-        response.send(info);
+        response.json({ message: 'No session data' });
     }
 }
 app.get('/userroleraw', rootRouterole);
+// app.get('/session-data', (request, response) => {
+//     if (request.session.logedin!== true) {
+//         response.redirect("/index.html")
+//         return;
+//     } else if (request.session.lrole) {
+//       response.json(request.session.lrole);
+//     } else {
+//       response.json({ message: 'No session data' });
+//     }
+// });
 app.listen(3000, () => {
     console.log('Server is up on port 3000');
 });

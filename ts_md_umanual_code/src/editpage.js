@@ -18,24 +18,19 @@ console.log("hello world! js");
 // bgetusers()
 
 async function editf(){
-  const response = await fetch("/usersrawjson");
+  const response = await fetch("/userroleraw");
   const data = await response.json();
   console.log(data);
 
-  let testuser = data[0].uname;
-  console.log(testuser);
-
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].uuserrole == "admin") {
-      var x = document.getElementById("editcontents");
-      if (x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
+  if (data.value == "admin") {
+    var x = document.getElementById("editcontents");
+    if (x.style.display === "none") {
+      x.style.display = "block";
     } else {
-      return console.log("Invalid role: " + data[i].uuserrole);
+      x.style.display = "none";
     }
+  } else {
+    return console.log("Invalid role: " + data.value);
   }
 }
 

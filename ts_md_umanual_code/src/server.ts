@@ -65,12 +65,25 @@ function rootRouterole(request, response) {
     if (request.session.logedin!== true) {
         response.redirect("/index.html")
         return;
+    } else if (request.session.lrole) {
+        response.json(request.session.lrole);
     } else {
-        //send user role to editpage.js/get user role
+        response.json({ message: 'No session data' });
     }
 }
 
 app.get('/userroleraw', rootRouterole)
+
+// app.get('/session-data', (request, response) => {
+//     if (request.session.logedin!== true) {
+//         response.redirect("/index.html")
+//         return;
+//     } else if (request.session.lrole) {
+//       response.json(request.session.lrole);
+//     } else {
+//       response.json({ message: 'No session data' });
+//     }
+// });
 
 app.listen(3000, () => {
     console.log('Server is up on port 3000')
