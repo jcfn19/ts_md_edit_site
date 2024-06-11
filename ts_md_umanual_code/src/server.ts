@@ -3,6 +3,7 @@ const app = express();
 import sqlite3 from 'better-sqlite3';
 const db = sqlite3('brukerveiledning.db', {verbose: console.log})
 import session from 'express-session';
+import zlib from 'zlib';
 
 app.use(session({
     secret: "qwerty",
@@ -62,6 +63,15 @@ function formhandlerlog(request, response) {
 
 app.post('/flogin', formhandlerlog);
 
+//function for decompressing the data on loading userguide.html & sending it to editpage.js
+function decompressf(){
+    const row: any = db.prepare('SELECT umcontents FROM usermanualt WHERE umid = ?').get(1);
+    const compressedData = Buffer.from(row.umcontents, 'base64').toString();
+    const decompressedData = zlib.inflateSync(compressedData).toString();
+
+    console.log(decompressedData);
+}
+
 // checks if the user is logged in and sends the users role to editpage.js
 function rootRouterole(request, response) {
     if (request.session.logedin!== true) {
@@ -75,6 +85,25 @@ function rootRouterole(request, response) {
 }
 
 app.get('/userroleraw', rootRouterole)
+
+function formhandlerfeedback(request, response) {
+    console.log(request.body);
+
+    for (let i = 0; i < request.body.brukerveiledning.length; i++) {
+        console.log(request.body.brukerveiledning)
+
+        //should compress the data
+        const data = (request.body.brukerveiledning);
+        const compressedData = zlib.deflateSync(data).toString('base64');
+        
+        const stmt = db.prepare('INSERT INTO usermanualt (umcontents) VALUES (?)');
+        stmt.run(compressedData);//compressed data
+    }
+
+    response.send("compressed data sendt")
+}
+
+app.post('/sendjsonbody', formhandlerfeedback);
 
 app.listen(3000, () => {
     console.log('Server is up on port 3000')

@@ -29,4 +29,20 @@ function updateIframe() {
 function savechangesf(){
   var text = document.getElementById('text field').value;
   document.getElementById('contents').innerHTML = marked.parse(text);
+
+  function sendjson() {
+    const body = {
+      brukerveiledning: document.querySelector("#contents").value,
+    }
+
+    fetch("/sendjsonbody", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+  }
+  
+  sendjson();
 }
