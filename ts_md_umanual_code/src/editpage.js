@@ -28,11 +28,11 @@ function updateIframe() {
 
 function savechangesf(){
   var text = document.getElementById('text field').value;
-  var content = document.getElementById('contents').innerHTML = marked.parse(text);
+  var content = toString(document.getElementById('contents').innerHTML = marked.parse(text));
 
   function sendjson() {
     const body = {
-      brukerveiledning: content.value,
+      brukerveiledning: content,
     }
 
     fetch("/sendjsonbody", {

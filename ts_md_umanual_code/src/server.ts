@@ -93,12 +93,24 @@ function formhandlerfeedback(request, response) {
 
     //should compress the data
     const data = (request.body.brukerveiledning);
-    const compressedData = zlib.deflateSync(data).toString('base64');
-    
-    const stmt = db.prepare('INSERT INTO usermanualt (umcontents) VALUES (?)');
-    stmt.run(compressedData);//compressed data
 
-    response.send("compressed data sendt")
+    try {
+        // Ensure data is a valid string
+        if (typeof data !== 'string' || !data) {
+          throw new TypeError('Invalid data: Data must be a non-empty string.');
+        }
+
+        const compressedData = zlib.deflateSync(data);//.toString('base64');
+        
+        const stmt = db.prepare('INSERT INTO usermanualt (umcontents) VALUES (?)');
+        stmt.run(compressedData);//compressed data
+
+        response.send("compressed data sendt")
+
+        console.log('Data successfully compressed and inserted into the database.');
+    } catch (error) {
+        console.error('Error compressing and inserting data:', error);
+    }
 }
 
 app.post('/sendjsonbody', formhandlerfeedback);
