@@ -28,7 +28,7 @@ function updateIframe() {
 
 function savechangesf(){
   var text = document.getElementById('text field').value;
-  var content = toString(document.getElementById('contents').innerHTML = marked.parse(text));
+  var content = document.getElementById('contents').innerHTML = marked.parse(toString(text));
 
   function sendjson() {
     const body = {
