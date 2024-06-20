@@ -92,7 +92,7 @@ function formhandlerfeedback(request, response) {
     console.log(request.body.brukerveiledning)
 
     //should compress the data
-    const data = (request.body.brukerveiledning);
+    const data = '' + (request.body.brukerveiledning);
 
     try {
         // Ensure data is a valid string
