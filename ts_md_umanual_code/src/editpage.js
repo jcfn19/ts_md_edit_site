@@ -30,7 +30,8 @@ function savechangesf(){
   var text = document.getElementById('text field').value;
   document.getElementById('contents').innerHTML = marked.parse(text);
 
-  var content = document.querySelector("#contents").value//string works, err/fail with inserting textarea
+  var content = document.getElementById('text field').value
+  console.log(content)
 
   function sendjson() {
     const body = {

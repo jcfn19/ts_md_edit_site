@@ -66,8 +66,10 @@ app.post('/flogin', formhandlerlog);
 //function for decompressing the data on loading userguide.html & sending it to editpage.js
 // function decompressf(){
 //     const row: any = db.prepare('SELECT umcontents FROM usermanualt WHERE umid = ?').get(1);
-//     const compressedData = Buffer.from(row.umcontents, 'base64').toString();
-//     const decompressedData = zlib.inflateSync(compressedData).toString();
+//     console.log(row);
+    
+//     const compressedData = Buffer.from(JSON.stringify(row), 'base64');
+//     const decompressedData = zlib.inflateSync(compressedData);
 
 //     console.log(decompressedData);
 // }
