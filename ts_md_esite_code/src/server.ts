@@ -50,6 +50,7 @@ function formhandlerlog(request, response) {
             request.session.logedin = true;
             request.session.lpassword = row.password;
             request.session.lrole = row.uuserrole;
+            decompressf()
             response.redirect("/userguide.html");
         } else {
             request.session.logedin = false;
@@ -64,15 +65,15 @@ function formhandlerlog(request, response) {
 app.post('/flogin', formhandlerlog);
 
 //function for decompressing the data on loading userguide.html & sending it to editpage.js
-// function decompressf(){
-//     const row: any = db.prepare('SELECT umcontents FROM usermanualt WHERE umid = ?').get(1);
-//     console.log(row);
+function decompressf(){
+    const row: any = db.prepare('SELECT umcontents FROM usermanualt WHERE umid = ?').get(1);
+    console.log(row);
     
-//     const compressedData = Buffer.from(JSON.stringify(row), 'base64');
-//     const decompressedData = zlib.inflateSync(compressedData);
+    const compressedData = Buffer.from(row.umcontents, 'base64');
+    const decompressedData = zlib.inflateSync(compressedData);
 
-//     console.log(decompressedData);
-// }
+    console.log('decompressedData ' + decompressedData);
+}
 
 // checks if the user is logged in and sends the users role to editpage.js
 function rootRouterole(request, response) {
@@ -102,7 +103,7 @@ function formhandlerfeedback(request, response) {
           throw new TypeError('Invalid data: Data must be a non-empty string.');
         }
 
-        const compressedData = zlib.deflateSync(data);//.toString('base64');
+        const compressedData = zlib.deflateSync(data).toString('base64');
         
         const stmt = db.prepare('INSERT INTO usermanualt (umcontents) VALUES (?)');
         stmt.run(compressedData);//compressed data
