@@ -1,5 +1,14 @@
 console.log("hello world! js");
 
+async function decompdataf() {
+  const response = await fetch("/decompressedtext");
+  const data = await response.text();
+  // const stringdata = JSON.stringify(data);
+  console.log('js decompdata ' + data);
+
+  document.getElementById('contents').innerHTML = marked.parse(data);
+}
+
 async function editf(){
   const response = await fetch("/userroleraw");
   const data = await response.json();

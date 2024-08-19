@@ -50,7 +50,7 @@ function formhandlerlog(request, response) {
             request.session.logedin = true;
             request.session.lpassword = row.password;
             request.session.lrole = row.uuserrole;
-            decompressf()
+            // decompressf()
             response.redirect("/userguide.html");
         } else {
             request.session.logedin = false;
@@ -64,8 +64,8 @@ function formhandlerlog(request, response) {
 
 app.post('/flogin', formhandlerlog);
 
-//function for decompressing the data on loading userguide.html & sending it to editpage.js
-function decompressf(){
+//function for decompressing the data & sending it to editpage.js
+function rootRoutedecompress(request, response){
     const row: any = db.prepare('SELECT umcontents FROM usermanualt WHERE umid = ?').get(1);
     console.log(row);
     
@@ -73,7 +73,11 @@ function decompressf(){
     const decompressedData = zlib.inflateSync(compressedData);
 
     console.log('decompressedData ' + decompressedData);
+
+    response.send(decompressedData);
 }
+
+app.get('/decompressedtext', rootRoutedecompress)
 
 // checks if the user is logged in and sends the users role to editpage.js
 function rootRouterole(request, response) {
