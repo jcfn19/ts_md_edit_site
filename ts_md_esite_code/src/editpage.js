@@ -18,6 +18,8 @@ async function editf(){
     var x = document.getElementById("editcontents");
     if (x.style.display === "none") {
       x.style.display = "block";
+      var l = document.getElementById('contents').textContent;
+      document.getElementById('text field').innerHTML = marked.parse(l);
     } else {
       x.style.display = "none";
     }
@@ -41,7 +43,7 @@ function savechangesf(){
 
   var content = document.getElementById('text field').value
   console.log(content)
-
+ 
   function sendjson() {
     const body = {
       brukerveiledning: content,
