@@ -50,7 +50,6 @@ function formhandlerlog(request, response) {
             request.session.logedin = true;
             request.session.lpassword = row.password;
             request.session.lrole = row.uuserrole;
-            // decompressf()
             response.redirect("/userguide.html");
         } else {
             request.session.logedin = false;
@@ -66,7 +65,7 @@ app.post('/flogin', formhandlerlog);
 
 //function for decompressing the data & sending it to editpage.js
 function rootRoutedecompress(request, response){
-    const row: any = db.prepare('SELECT umcontents FROM usermanualt WHERE umid = ?').get(1);
+    const row: any = db.prepare('SELECT umcontents FROM usermanualt ORDER BY umid DESC LIMIT 1').get();
     console.log(row);
     
     const compressedData = Buffer.from(row.umcontents, 'base64');

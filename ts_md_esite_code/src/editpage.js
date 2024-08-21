@@ -18,7 +18,7 @@ async function editf(){
     var x = document.getElementById("editcontents");
     if (x.style.display === "none") {
       x.style.display = "block";
-      var l = document.getElementById('contents').textContent;
+      var l = document.getElementById('contents').innerHTML;
       document.getElementById('text field').innerHTML = marked.parse(l);
     } else {
       x.style.display = "none";
