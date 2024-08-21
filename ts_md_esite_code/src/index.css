@@ -4,6 +4,12 @@
     top: 8px;
 }
 
+#updatebtn{
+    position: absolute;
+    left: 181px;
+    top: 8px;
+}
+
 #previewbtn{
 	position: relative;
 	left: 5px;
