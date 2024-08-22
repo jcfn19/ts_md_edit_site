@@ -92,6 +92,7 @@ function rootRouterole(request, response) {
 
 app.get('/userroleraw', rootRouterole)
 
+//function for getting data from js & compresses it
 function formhandlerfeedback(request, response) {
     console.log(request.body);
 
@@ -109,7 +110,7 @@ function formhandlerfeedback(request, response) {
         const compressedData = zlib.deflateSync(data).toString('base64');
         
         const stmt = db.prepare('INSERT INTO usermanualt (umcontents) VALUES (?)');
-        stmt.run(compressedData);//compressed data
+        stmt.run(compressedData);
 
         response.send("compressed data sendt")
 

@@ -1,14 +1,16 @@
 console.log("hello world! js");
 
+//gets decompressed data from ts
 async function decompdataf() {
   const response = await fetch("/decompressedtext");
   const data = await response.text();
-  // const stringdata = JSON.stringify(data);
+
   console.log('js decompdata ' + data);
 
   document.getElementById('contents').innerHTML = marked.parse(data);
 }
 
+//function for editing the markdown
 async function editf(){
   const response = await fetch("/userroleraw");
   const data = await response.json();
@@ -28,6 +30,7 @@ async function editf(){
   }
 }
 
+//takes the contents of text field into outputFrame
 function updateIframe() {
   var text = document.getElementById('text field').value;
   var iframe = document.getElementById('outputFrame');
@@ -37,6 +40,7 @@ function updateIframe() {
   iframe.contentWindow.document.close();
 }
 
+//sends the text to ts
 function savechangesf(){
   var text = document.getElementById('text field').value;
   document.getElementById('contents').innerHTML = marked.parse(text);
