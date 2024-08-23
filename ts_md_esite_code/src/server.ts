@@ -65,7 +65,7 @@ app.post('/flogin', formhandlerlog);
 
 //function for decompressing the data & sending it to editpage.js
 function rootRoutedecompress(request, response){
-    const row: any = db.prepare('SELECT umcontents FROM usermanualt ORDER BY umid DESC LIMIT 1').get();
+    const row: any = db.prepare('SELECT umcontents FROM usermanualt ORDER BY umid DESC LIMIT 1').get();//gets newest added data from db
     console.log(row);
     
     const compressedData = Buffer.from(row.umcontents, 'base64');
