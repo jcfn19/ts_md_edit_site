@@ -94,29 +94,23 @@ app.get('/userroleraw', rootRouterole)
 
 //function for getting data from js & compresses it
 function formhandlerfeedback(request, response) {
-    console.log(request.body);
-
-    console.log(request.body.brukerveiledning)
-
-    //should compress the data
+      
     const data = '' + (request.body.brukerveiledning);
-
     try {
-        // Ensure data is a valid string
         if (typeof data !== 'string' || !data) {
-          throw new TypeError('Invalid data: Data must be a non-empty string.');
+            throw new TypeError('Invalid data: Data must be a non-empty string.');
         }
-
         const compressedData = zlib.deflateSync(data).toString('base64');
-        
         const stmt = db.prepare('INSERT INTO usermanualt (umcontents) VALUES (?)');
         stmt.run(compressedData);
-
-        response.send("compressed data sendt")
-
-        console.log('Data successfully compressed and inserted into the database.');
-    } catch (error) {
-        console.error('Error compressing and inserting data:', error);
+        response.status(201).send("Compressed data sent");
+    }
+    catch (error){
+        if (error instanceof TypeError) {
+            response.status(400).send('Bad Request: ' + error.message);
+        } else {
+            response.status(500).send('Internal Server Error: ' + error.message);
+        }
     }
 }
 
