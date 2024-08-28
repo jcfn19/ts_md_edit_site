@@ -103,13 +103,13 @@ function formhandlerfeedback(request, response) {
         const compressedData = zlib.deflateSync(data).toString('base64');
         const stmt = db.prepare('INSERT INTO usermanualt (umcontents) VALUES (?)');
         stmt.run(compressedData);
-        response.status(201).send("Compressed data sent");
+        response.status(201).send("Compressed data sent");//response created
     }
     catch (error){
         if (error instanceof TypeError) {
-            response.status(400).send('Bad Request: ' + error.message);
+            response.status(400).send('Bad Request: ' + error.message);//client-side error
         } else {
-            response.status(500).send('Internal Server Error: ' + error.message);
+            response.status(500).send('Internal Server Error: ' + error.message);//server error
         }
     }
 }
