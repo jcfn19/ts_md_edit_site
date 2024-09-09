@@ -1,15 +1,19 @@
 console.log("hello world! js");
 
+let markDownTemp = ""; // global variabel for å holde markdown
+
 //gets decompressed data from ts
 async function decompdataf() {
   const response = await fetch("/decompressedtext");
   const data = await response.text();
 
+  markDownTemp = data // lagrer markdown
+
   console.log('js decompdata ' + data);
 
   document.getElementById('contents').innerHTML = marked.parse(data);
 }
- 
+
 //function for editing the markdown
 async function editf(){
   const response = await fetch("/userroleraw");
@@ -20,8 +24,7 @@ async function editf(){
     var x = document.getElementById("editcontents");
     if (x.style.display === "none") {
       x.style.display = "block";
-      var l = document.getElementById('contents').innerHTML;
-      document.getElementById('text field').innerHTML = marked.parse(l);
+      document.getElementById('text field').innerHTML = markDownTemp 
     } else {
       x.style.display = "none";
     }
