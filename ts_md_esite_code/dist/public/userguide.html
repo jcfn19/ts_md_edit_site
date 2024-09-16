@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="index.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="editpage.js" defer></script>
+    <script src="./marked/marked.js"></script>
+    <script type="module" src="./editpage.js" defer></script>
 </head>
 <body>
     <!--clicking on the update button without any data in db will return an error-->
-    <button id="updatebtn" onclick="decompdataf()">update</button>
-    <button id="editbtn" onclick="editf()">edit</button>
+    <button id="updatebtn">update</button>
+    <button id="editbtn">edit</button>
     <div id="editcontents" style="display: none;">
-        <button id="previewbtn" onclick="updateIframe()">preview</button>
-        <button id="savebtn" onclick="savechangesf()">save changes</button>
+        <button id="previewbtn">preview</button>
+        <button id="savebtn">save changes</button>
         <div class="containers">
             <div class="container">
                 <textarea id="text field"></textarea>

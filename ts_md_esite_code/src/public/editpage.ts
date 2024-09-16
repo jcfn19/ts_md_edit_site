@@ -1,9 +1,11 @@
 console.log("hello world! js");
 
-let markDownTemp = ""; // global variabel for å holde markdown
+declare const marked: any;
+
+let markDownTemp = ""; // global variabel for holding markdown
 
 //gets decompressed data from ts
-async function decompdataf() {
+async function decompdataf(){
   const response = await fetch("/decompressedtext");
   const data = await response.text();
 
@@ -13,6 +15,9 @@ async function decompdataf() {
 
   document.getElementById('contents').innerHTML = marked.parse(data);
 }
+
+const updatebutton = document.getElementById('updatebtn') as HTMLButtonElement; 
+updatebutton.onclick = decompdataf;
 
 //function for editing the markdown
 async function editf(){
@@ -33,23 +38,32 @@ async function editf(){
   }
 }
 
+const editbutton = document.getElementById('editbtn') as HTMLButtonElement; 
+editbutton.onclick = editf;
+
 //takes the contents of text field into outputFrame
 function updateIframe() {
-  var text = document.getElementById('text field').value;
-  var iframe = document.getElementById('outputFrame');
+  const textF = document.getElementById('text field') as HTMLTextAreaElement;
+  const text = textF.value;
+  const iframe = document.getElementById('outputFrame') as HTMLIFrameElement;
 
   iframe.contentWindow.document.open();
   iframe.contentWindow.document.write(marked.parse(text));
   iframe.contentWindow.document.close();
 }
 
+const previewbutton = document.getElementById('previewbtn') as HTMLButtonElement;
+previewbutton.onclick = updateIframe;
+
 //sends the text to ts
 function savechangesf(){
-  var text = document.getElementById('text field').value;
+  const textF = document.getElementById('text field') as HTMLTextAreaElement;
+  const text = textF.value;
   document.getElementById('contents').innerHTML = marked.parse(text);
 
-  var content = document.getElementById('text field').value
-  console.log(content)
+  let contentv = document.getElementById('text field') as HTMLTextAreaElement;
+  let content = contentv.value
+  console.log(content);
  
   function sendjson() {
     const body = {
@@ -67,3 +81,6 @@ function savechangesf(){
   
   sendjson();
 }
+
+const savecbutton = document.getElementById('savebtn') as HTMLButtonElement;
+savecbutton.onclick = savechangesf;

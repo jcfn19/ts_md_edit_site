@@ -22,8 +22,8 @@ import path, { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const publicDirectoryPath = path.join(__dirname, "../src");
-app.use(express.static(publicDirectoryPath));
-app.use(express.static(path.join(__dirname, '../dist')));
+//app.use(express.static(publicDirectoryPath))
+app.use(express.static(path.join(__dirname, '../dist/public')));
 // form handler for the login
 function formhandlerlog(request, response) {
     const bsql = db.prepare('SELECT * FROM users WHERE users.uname = ?');
@@ -89,14 +89,14 @@ function formhandlerfeedback(request, response) {
         const compressedData = zlib.deflateSync(data).toString('base64');
         const stmt = db.prepare('INSERT INTO usermanualt (umcontents) VALUES (?)');
         stmt.run(compressedData);
-        response.status(201).send("Compressed data sent");
+        response.status(201).send("Compressed data sent"); //response created
     }
     catch (error) {
         if (error instanceof TypeError) {
-            response.status(400).send('Bad Request: ' + error.message);
+            response.status(400).send('Bad Request: ' + error.message); //client-side error
         }
         else {
-            response.status(500).send('Internal Server Error: ' + error.message);
+            response.status(500).send('Internal Server Error: ' + error.message); //server error
         }
     }
 }

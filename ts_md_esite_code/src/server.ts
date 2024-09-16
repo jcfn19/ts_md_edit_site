@@ -28,8 +28,8 @@ import path, { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const publicDirectoryPath = path.join(__dirname, "../src")
-app.use(express.static(publicDirectoryPath))
-app.use(express.static(path.join(__dirname, '../dist')));
+//app.use(express.static(publicDirectoryPath))
+app.use(express.static(path.join(__dirname, '../dist/public')));
 
 // form handler for the login
 function formhandlerlog(request, response) {
