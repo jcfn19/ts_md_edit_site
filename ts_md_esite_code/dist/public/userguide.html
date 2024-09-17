@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="index.css">
     <script src="./marked/marked.js"></script>
     <script type="module" src="./editpage.js" defer></script>
+    <link rel="stylesheet" href="menu.css">
+    <script type="module" src="./menu.js" defer></script>
 </head>
 <body>
     <!--clicking on the update button without any data in db will return an error-->
@@ -25,5 +27,21 @@
         </div>
     </div>
     <div id="contents"></div>
+
+    <!--exsampel template menu-->
+
+    <div id="idSidenav" class="classSidenav">
+        <button href="javascript:void(0)" class="closebtn" id="closeNav">&times;</button>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+    
+    <span id="openNav">
+        <div id="menuicon"></div>
+        <div id="menuicon"></div>
+        <div id="menuicon"></div>
+    </span>
 </body>
 </html>
