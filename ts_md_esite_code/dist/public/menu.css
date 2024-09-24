@@ -49,3 +49,7 @@ margin-left: 50px;
 .classSidenav {padding-top: 15px;}
 .classSidenav a {font-size: 18px;}
 } */
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}

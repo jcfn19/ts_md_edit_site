@@ -29,15 +29,20 @@
     <div id="contents"></div>
 
     <!--exsampel template menu-->
-
     <div id="idSidenav" class="classSidenav">
         <button href="javascript:void(0)" class="closebtn" id="closeNav">&times;</button>
-        <a href="userguide.html">Home</a>
-        <a href="#">About</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <button id="editmenubtn">edit file</button>
+        <div id="sidenavbtns" style="display: none;">
+            <button id="unfbtn">upload new file</button>
+            <button id="delfbtn">delete file</button>
+        </div>
+        <a href="userguide.html">Home</a> <!--can't delete home page/file-->
+        <a href="#">About</a> <input type="checkbox" id="" style="display: none;"> <!--checkboxes will get generated when new files are uploaded-->
+        <a href="#">Clients</a> <input type="checkbox" id="" style="display: none;">
+        <a href="#">Contact</a> <input type="checkbox" id="" style="display: none;">
     </div>
     
+    <!--hamburger menu-->
     <span id="openNav">
         <div id="menuicon"></div>
         <div id="menuicon"></div>
