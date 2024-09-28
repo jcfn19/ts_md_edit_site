@@ -1,31 +1,44 @@
+
+:root {
+	--document-background-color: #f0f0f0;
+	--document-font-size: 14px;
+}
+
+
+
+
+main {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 20px;
+
+
+}
+
+
+#contents{
+	width: 90%;
+	border: 1px solid black;
+	padding: 10px;
+}
+
+
 #editbtn{
     position: absolute;
-    left: 1485px;/* change to 1869 for when viewing on a monitor*/
+    left: 40%;/* change to 1869 for when viewing on a monitor*/
     top: 8px;
 }
 
 #updatebtn{
     position: absolute;
-    left: 181px;
+    left: 20%;
     top: 8px;
 }
 
-#previewbtn{
-	position: relative;
-	left: 5px;
-	top: 0px;
-}
 
-#savebtn{
-	position: relative;
-	left: 5px;
-	top: 0px;
-}
 
-textarea {
-	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-	font-size: 12px;
-}
 
 iframe {
 	resize: both;
@@ -34,13 +47,44 @@ iframe {
 .containers {
 	display: flex;
 	height: calc(100vh - 68px);
+	border: 1px solid #000;
+
+	background-color: var(--navbar-bg-color-light);
+
 }
+
+@media screen and (max-width: 900px) {
+	.containers {
+		flex-direction: column;
+	}
+}
+
 
 .container {
 	flex-basis: 50%;
 	padding: 5px;
 	display: flex;
 	flex-direction: column;
+	padding: 10px;
+	
+}
+
+.container iframe {
+	flex-grow: 1;
+	background-color: var(--document-background-color);
+	font-size: var(--document-font-size);
+	border: 1px solid #000;
+}
+
+
+#editor-tools{
+	margin-bottom: 10px;
+}
+
+.editor-workspace {
+	padding: 10px;
 	height: 100%;
-	box-sizing: border-box;
+	background-color: var(--document-background-color);
+	font-size: var(--document-font-size);
+	border: 1px solid #000;
 }
