@@ -1,25 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Brukerveiledninger</title>
+    
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/style.css">
+
     <script src="./marked/marked.js"></script>
     <script type="module" src="./editpage.js" defer></script>
-    <link rel="stylesheet" href="menu.css">
     <script type="module" src="./menu.js" defer></script>
 </head>
+
 <body>
+
+    <nav class="nav-bar">
+    <!--hamburger menu-->
+    <span id="openNav">
+        <div id="menuicon"></div>
+        <div id="menuicon"></div>
+        <div id="menuicon"></div>
+    </span>
+
+    </nav>
+
+    <main>
+
+
     <!--clicking on the update button without any data in db will return an error-->
     <button id="updatebtn">update</button>
     <button id="editbtn">edit</button>
+
     <div id="editcontents" style="display: none;">
-        <button id="previewbtn">preview</button>
-        <button id="savebtn">save changes</button>
+        
+        <div id="editor-tools">
+        <button id="previewbtn">Preview</button>
+        <button id="savebtn">Save changes</button>
+        </div>
+
         <div class="containers">
             <div class="container">
-                <textarea id="text field"></textarea>
+                <textarea id="text field" class="editor-workspace"></textarea>
             </div>
             <div class="container">
                 <iframe id="outputFrame"></iframe>
@@ -27,6 +52,13 @@
         </div>
     </div>
     <div id="contents"></div>
+
+
+    </main>
+
+
+
+
 
     <!--exsampel template menu-->
     <div id="idSidenav" class="classSidenav">
@@ -37,16 +69,13 @@
             <button id="delfbtn">delete file</button>
         </div>
         <a href="userguide.html">Home</a> <!--can't delete home page/file-->
-        <a href="#">About</a> <input type="checkbox" id="" style="display: none;"> <!--checkboxes will get generated when new files are uploaded-->
+        <a href="#">About</a> <input type="checkbox" id="" style="display: none;">
+        <!--checkboxes will get generated when new files are uploaded-->
         <a href="#">Clients</a> <input type="checkbox" id="" style="display: none;">
         <a href="#">Contact</a> <input type="checkbox" id="" style="display: none;">
     </div>
-    
-    <!--hamburger menu-->
-    <span id="openNav">
-        <div id="menuicon"></div>
-        <div id="menuicon"></div>
-        <div id="menuicon"></div>
-    </span>
+
+
 </body>
+
 </html>
