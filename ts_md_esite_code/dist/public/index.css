@@ -1,11 +1,7 @@
-
 :root {
 	--document-background-color: #f0f0f0;
 	--document-font-size: 14px;
 }
-
-
-
 
 main {
 	padding: 20px;
@@ -17,12 +13,6 @@ main {
 
 }
 
-
-#contents{
-	width: 90%;
-	border: 1px solid black;
-	padding: 10px;
-}
 
 
 #editbtn{
@@ -39,14 +29,12 @@ main {
 
 
 
-
 iframe {
 	resize: both;
 }
 
 .containers {
 	display: flex;
-	height: calc(100vh - 68px);
 	border: 1px solid #000;
 
 	background-color: var(--navbar-bg-color-light);
@@ -60,6 +48,7 @@ iframe {
 }
 
 
+
 .container {
 	flex-basis: 50%;
 	padding: 5px;
@@ -70,11 +59,11 @@ iframe {
 }
 
 .container iframe {
-	flex-grow: 1;
 	background-color: var(--document-background-color);
 	font-size: var(--document-font-size);
 	border: 1px solid #000;
 }
+
 
 
 #editor-tools{

@@ -1,7 +1,7 @@
 /* Set some variables */
 :root {
   --navbar-height: 50px;
-  --navbar-bg-color-light: #ed8383;
+  --navbar-bg-color-light: gray;/*#ed8383*/
   --navbar-bg-color-dark: #333;
   
 }

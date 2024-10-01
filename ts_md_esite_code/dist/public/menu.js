@@ -11,7 +11,7 @@ function closeNavf() {
 }
 const closenavbutton = document.getElementById('closeNav');
 closenavbutton.onclick = closeNavf;
-//function for editing the files in the menu
+//function for displaying/hiding the upload and delete btns & checkboxes in the menu
 async function editmenuf() {
     const response = await fetch("/userroleraw");
     const data = await response.json();
