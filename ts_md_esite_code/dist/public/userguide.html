@@ -56,8 +56,9 @@
         <button href="javascript:void(0)" class="closebtn" id="closeNav">&times;</button>
         <button id="editmenubtn">edit file</button>
         <div id="sidenavbtns" style="display: none;">
-            <button id="unfbtn">upload new file</button>
-            <button id="delfbtn">delete file</button>
+            <input type="file" id="cnfbtn"><!--chose file-->
+            <button id="unfbtn">upload new file</button><!--will take the input file & upload it once clicked-->
+            <button id="delfbtn">delete file</button><!--will delete files from the menu that are checked once clicked-->
         </div>
         <a href="userguide.html">Home</a><!--can't delete home page/file-->
         <a href="#">About</a> <input type="checkbox" id="" style="display: none;"><!--checkboxes will get generated when new files are uploaded-->

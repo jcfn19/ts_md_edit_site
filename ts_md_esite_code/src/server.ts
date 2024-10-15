@@ -116,6 +116,26 @@ function formhandlerfeedback(request, response) {
 
 app.post('/sendjsonbody', formhandlerfeedback);
 
+// function for uploading the sent file to db
+function formhandleruploadfile(request, response) {
+
+    (request.body.filopplastning);
+    try {
+        const nfsql = db.prepare('INSERT INTO sidenavfile (sffile) VALUES (?)');
+        nfsql.run(request.body.filopplastning);
+        response.status(201).send("New file uploaded!")// file sent to db
+    }
+    catch (error) {
+        if (error instanceof TypeError) {
+            response.status(400).send('Bad Request: ' + error.message);
+        } else {
+            response.status(500).send('Internal Server Error: ' + error.message);
+        }
+    }
+}
+
+app.post('/sendfilebody', formhandleruploadfile);
+
 app.listen(3000, () => {
     console.log('Server is up on port 3000')
 })
