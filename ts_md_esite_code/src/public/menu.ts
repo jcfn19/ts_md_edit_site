@@ -72,27 +72,6 @@ function uploadnewfilef() {
         const filopplastning = await response.text();
         console.log(filopplastning);
     }
-
-
-    // let contentf = document.querySelector('formcnf') as HTMLFormElement;
-    // if (!contentf) return;
-    // // contentf.addEventListener('submit', sendnewfile);
-
-    // // contentf = event.currentTarget;
-
-    // const body = {
-    //     filopplastning: contentf,
-    // }
-
-    // function sendnewfile() {
-    //     event.preventDefault();
-    //     fetch("/sendfilebody", {
-    //         method: 'POST',
-    //         body: new FormData(contentf)
-    //     });
-    // }
-
-    // sendnewfile();
 }
 
 const uploadnfbutton = document.getElementById('unfbtn') as HTMLButtonElement;
