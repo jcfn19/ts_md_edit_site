@@ -1,3 +1,4 @@
+import sys
 import os.path
 import sqlite3
 
@@ -30,3 +31,5 @@ def insert_image(image_name, image_path):
 
 # Example usage
 insert_image('mars.png', '.\mars.png')
+
+print(sys.path)
