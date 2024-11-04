@@ -1,35 +1,40 @@
 import sys
-import os.path
-import sqlite3
+from fastapi import FastAPI
+# import os.path
+# import sqlite3
 
-# db path
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, "brukerveiledning.db")
+app = FastAPI()
 
-def convert_to_binary_data(filename):
-    with open(filename, 'rb') as file:
-        blob_data = file.read()
-    return blob_data
+# # db path
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# db_path = os.path.join(BASE_DIR, "brukerveiledning.db")
 
-def insert_image(image_name, image_path):
-    # Convert image to binary data
-    image_data = convert_to_binary_data(image_path)
+# def convert_to_binary_data(filename):
+#     with open(filename, 'rb') as file:
+#         blob_data = file.read()
+#     return blob_data
+
+# def insert_image(image_name, image_path):
+#     # Convert image to binary data
+#     image_data = convert_to_binary_data(image_path)
     
-    # Connect to the SQLite database
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
+#     # Connect to the SQLite database
+#     conn = sqlite3.connect(db_path)
+#     cursor = conn.cursor()
     
-    # Insert image and its name into the database
-    cursor.execute('''
-        INSERT INTO ImgTestTable (imgname, imgdata)
-        VALUES (?, ?)
-    ''', (image_name, image_data))
+#     # Insert image and its name into the database
+#     cursor.execute('''
+#         INSERT INTO ImgTestTable (imgname, imgdata)
+#         VALUES (?, ?)
+#     ''', (image_name, image_data))
     
-    # Commit the changes and close the connection
-    conn.commit()
-    conn.close()
+#     # Commit the changes and close the connection
+#     conn.commit()
+#     conn.close()
 
-# Example usage
-insert_image('mars.png', '.\mars.png')
+# # Example usage
+# insert_image('mars.png', '.\mars.png')
 
-print(sys.path)
+@app.get("/")
+def index():
+    return print(sys.path)
