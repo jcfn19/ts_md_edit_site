@@ -5,7 +5,7 @@ declare const marked: any;
 let markDownTemp = ""; // global variabel for holding markdown
 
 //gets decompressed data from ts
-async function decompdataf(){
+async function decompdataf() {
   const response = await fetch("/decompressedtext");
   const data = await response.text();
 
@@ -16,11 +16,11 @@ async function decompdataf(){
   document.getElementById('contents').innerHTML = marked.parse(data);
 }
 
-const updatebutton = document.getElementById('updatebtn') as HTMLButtonElement; 
+const updatebutton = document.getElementById('updatebtn') as HTMLButtonElement;
 updatebutton.onclick = decompdataf;
 
 //function for editing the markdown
-async function editf(){
+async function editf() {
   const response = await fetch("/userroleraw");
   const data = await response.json();
   console.log(data);
@@ -29,7 +29,7 @@ async function editf(){
     var x = document.getElementById("editcontents");
     if (x.style.display === "none") {
       x.style.display = "block";
-      document.getElementById('text field').innerHTML = markDownTemp 
+      document.getElementById('text field').innerHTML = markDownTemp
     } else {
       x.style.display = "none";
     }
@@ -38,7 +38,7 @@ async function editf(){
   }
 }
 
-const editbutton = document.getElementById('editbtn') as HTMLButtonElement; 
+const editbutton = document.getElementById('editbtn') as HTMLButtonElement;
 editbutton.onclick = editf;
 
 //takes the contents of text field into outputFrame
@@ -56,7 +56,7 @@ const previewbutton = document.getElementById('previewbtn') as HTMLButtonElement
 previewbutton.onclick = updateIframe;
 
 //sends the text to ts
-function savechangesf(){
+function savechangesf() {
   const textF = document.getElementById('text field') as HTMLTextAreaElement;
   const text = textF.value;
   document.getElementById('contents').innerHTML = marked.parse(text);
@@ -64,7 +64,7 @@ function savechangesf(){
   let contentv = document.getElementById('text field') as HTMLTextAreaElement;
   let content = contentv.value
   console.log(content);
- 
+
   function sendjson() {
     const body = {
       brukerveiledning: content,
@@ -78,9 +78,43 @@ function savechangesf(){
       body: JSON.stringify(body)
     })
   }
-  
+
   sendjson();
 }
 
 const savecbutton = document.getElementById('savebtn') as HTMLButtonElement;
 savecbutton.onclick = savechangesf;
+
+
+const imgUploadForm = document.getElementById('imgUploadForm') as HTMLFormElement;
+imgUploadForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  uploadImage(this)
+
+})
+
+async function uploadImage(form: HTMLFormElement) {
+
+  const url = 'http://127.0.0.1:8000/uploadfile/'
+
+  const formData = new FormData(form); // Collect form data
+
+  try {
+    const response = await fetch(url, {
+      method: form.method, // Use the form's method
+      body: formData, // Send as multipart/form-data
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log('Upload successful:', result);
+
+  }
+  catch{
+    console.log("Something")
+  }
+
+}

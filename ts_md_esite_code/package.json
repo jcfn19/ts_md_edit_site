@@ -10,11 +10,13 @@
     "@types/marked": "^6.0.0",
     "@types/node": "^20.12.12",
     "better-sqlite3": "^10.0.0",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express-session": "^1.18.0"
   }
 }

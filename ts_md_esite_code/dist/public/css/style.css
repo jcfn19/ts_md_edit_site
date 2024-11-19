@@ -14,6 +14,11 @@ button {
 
 }
 
+#inputimage {
+    padding: 5px;
+    font-size: larger;
+}
+
 /*login form css*/
 #login-wrapper {
     display: flex;

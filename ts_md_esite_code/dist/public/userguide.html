@@ -35,6 +35,10 @@
             <div id="editor-tools">
                 <button id="previewbtn">Preview</button>
                 <button id="savebtn">Save changes</button>
+                <form id="imgUploadForm" action="http://127.0.0.1:8000/uploadfile/" enctype="multipart/form-data" method="post">
+                    <input name="file" type="file" id="inputimage">
+                    <button type="submit">Upload image</button>
+                </form>
             </div>
 
             <div class="containers">

@@ -66,5 +66,28 @@ function savechangesf() {
 }
 const savecbutton = document.getElementById('savebtn');
 savecbutton.onclick = savechangesf;
+const imgUploadForm = document.getElementById('imgUploadForm');
+imgUploadForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    uploadImage(this);
+});
+async function uploadImage(form) {
+    const url = 'http://127.0.0.1:8000/uploadfile/';
+    const formData = new FormData(form); // Collect form data
+    try {
+        const response = await fetch(url, {
+            method: form.method, // Use the form's method
+            body: formData, // Send as multipart/form-data
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log('Upload successful:', result);
+    }
+    catch {
+        console.log("Something");
+    }
+}
 export {};
 //# sourceMappingURL=editpage.js.map

@@ -1,25 +1,48 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 import os.path
 import sqlite3
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()# app is up on port: 8000
 
-@app.get("/")
-def upload_image(image_path):
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(BASE_DIR, "brukerveiledning.db")
-    
-    file_name = os.path.basename(image_path)
-    
-    # Connect to the SQLite database
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    
-    # Insert image and its name into the database
-    cursor.execute(''' INSERT INTO ImgTestTable (imgname, imgpath) VALUES (?,?)''', (file_name, image_path))
-    
-    conn.commit()
-    conn.close()
+origins = [
+    "http://localhost:3000",
+]
 
-# example usage
-upload_image('.\mars.png')
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+html_path = os.path.join(BASE_DIR, "../src")
+public_directory_path = os.path.join(BASE_DIR, '../dist/public')
+app.get = public_directory_path
+
+import shutil
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile):
+    file_location = f"./{file.filename}"
+    with open(file_location, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+        db_path = os.path.join(BASE_DIR, "brukerveiledning.db")
+    
+        file_name = os.path.basename(file.filename)
+
+       # Connect to the SQLite database
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        # Insert image and its name into the database
+        cursor.execute(''' INSERT INTO ImgTestTable (imgname, imgpath) VALUES (?,?)''', (file_name, '/images/'))
+        
+        conn.commit()
+        conn.close()
+
+
+    return {"filename": file.filename}
