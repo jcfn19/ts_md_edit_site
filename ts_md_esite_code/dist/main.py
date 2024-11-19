@@ -26,7 +26,7 @@ import shutil
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile):
-    file_location = f"./{file.filename}"
+    file_location = f"public\\uploaded_images\\{file.filename}"
     with open(file_location, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
@@ -39,7 +39,7 @@ async def create_upload_file(file: UploadFile):
         cursor = conn.cursor()
         
         # Insert image and its name into the database
-        cursor.execute(''' INSERT INTO ImgTestTable (imgname, imgpath) VALUES (?,?)''', (file_name, '/images/'))
+        cursor.execute(''' INSERT INTO ImgTestTable (imgname, imgpath) VALUES (?,?)''', (file_name, '/uploaded_images/'))
         
         conn.commit()
         conn.close()

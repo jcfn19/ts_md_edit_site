@@ -4,6 +4,7 @@ import sqlite3 from 'better-sqlite3';
 const db = sqlite3('brukerveiledning.db', { verbose: console.log });
 import session from 'express-session';
 import zlib from 'zlib';
+// if github freezes on sync changes/commit: git reset --soft HEAD~2
 app.use(session({
     secret: "qwerty",
     resave: false,
