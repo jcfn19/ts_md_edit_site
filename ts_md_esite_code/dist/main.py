@@ -2,6 +2,7 @@ from fastapi import FastAPI, File, UploadFile
 import os.path
 import sqlite3
 from fastapi.middleware.cors import CORSMiddleware
+import hashlib
 
 app = FastAPI()# app is up on port: 8000
 
@@ -24,9 +25,20 @@ app.get = public_directory_path
 
 import shutil
 
+def simple_hash(binary_data):
+    hasher = hashlib.sha256()
+    hasher.update(binary_data)
+    return hasher.hexdigest()
+
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile):
     file_location = f"public\\uploaded_images\\{file.filename}"
+    
+    filecontent = file.file.read()
+    
+    hash_result = simple_hash(filecontent)
+    print(f"The SHA-256 hash of '{file.file}' is: {hash_result}")
+    
     with open(file_location, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
@@ -37,12 +49,11 @@ async def create_upload_file(file: UploadFile):
        # Connect to the SQLite database
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
-        
+
         # Insert image and its name into the database
-        cursor.execute(''' INSERT INTO ImgTestTable (imgname, imgpath) VALUES (?,?)''', (file_name, '/uploaded_images/'))
+        cursor.execute(''' INSERT INTO ImgTestTable (imgname, imgpath, imghash) VALUES (?,?,?)''', (file_name, '/uploaded_images/', hash_result))
         
         conn.commit()
         conn.close()
-
 
     return {"filename": file.filename}
