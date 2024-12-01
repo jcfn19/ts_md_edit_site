@@ -32,28 +32,50 @@ def simple_hash(binary_data):
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile):
-    file_location = f"public\\uploaded_images\\{file.filename}"
     
+    folder_name = "uploaded_images"
+    
+    # make sure the folder exists
+    if not os.path.exists(f"public\\{folder_name}"):
+        os.makedirs(f"public\\{folder_name}")
+
+
+    # Get the hash of the file      
     filecontent = file.file.read()
-    
     hash_result = simple_hash(filecontent)
     print(f"The SHA-256 hash of '{file.file}' is: {hash_result}")
+
+    # Reset the file pointer to the beginning
+    file.file.seek(0)
+
+    # get the extension of the file, and create a new file name with the hash
+    file_name, file_extension = os.path.splitext(file.filename)
+    new_file_name = hash_result + file_extension
+    file_location = f"public\\{folder_name}\\{new_file_name}"
+        
+    #check if the file already exists by checking the hash
+    db_path = os.path.join(BASE_DIR, "brukerveiledning.db")
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute('''SELECT * FROM ImgTestTable WHERE imghash = ?''', (hash_result,))
+    if cursor.fetchone():
+        conn.close()
+        return {"filename": new_file_name, "status": "File already exists"}
     
+    
+    # Save the file to the server
     with open(file_location, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-        db_path = os.path.join(BASE_DIR, "brukerveiledning.db")
+
+    # Insert the image into the database
+    db_path = os.path.join(BASE_DIR, "brukerveiledning.db")
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    cursor.execute(''' INSERT INTO ImgTestTable (imgname, imgpath, imghash) VALUES (?,?,?)''', (file_name, "/" + folder_name + "/", hash_result))
     
-        file_name = os.path.basename(file.filename)
+    conn.commit()
+    conn.close()
 
-       # Connect to the SQLite database
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-
-        # Insert image and its name into the database
-        cursor.execute(''' INSERT INTO ImgTestTable (imgname, imgpath, imghash) VALUES (?,?,?)''', (file_name, '/uploaded_images/', hash_result))
-        
-        conn.commit()
-        conn.close()
-
-    return {"filename": file.filename}
+    return {"filename": new_file_name} # return the new file name
