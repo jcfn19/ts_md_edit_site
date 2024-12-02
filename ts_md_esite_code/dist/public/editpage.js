@@ -1,4 +1,6 @@
 console.log("hello world! js");
+const devServerUrlPublic = "http://localhost:3000/";
+const imageFolderName = "uploaded_images";
 let markDownTemp = ""; // global variabel for holding markdown
 //gets decompressed data from ts
 async function decompdataf() {
@@ -33,6 +35,11 @@ const editbutton = document.getElementById('editbtn');
 editbutton.onclick = editf;
 //takes the contents of text field into outputFrame
 function updateIframe() {
+    //check if marked is defined
+    if (typeof marked === 'undefined') {
+        console.log("marked is undefined");
+        return;
+    }
     const textF = document.getElementById('text field');
     const text = textF.value;
     const iframe = document.getElementById('outputFrame');
@@ -67,9 +74,15 @@ function savechangesf() {
 const savecbutton = document.getElementById('savebtn');
 savecbutton.onclick = savechangesf;
 const imgUploadForm = document.getElementById('imgUploadForm');
-imgUploadForm.addEventListener('submit', function (e) {
+imgUploadForm.addEventListener('submit', async function (e) {
     e.preventDefault();
-    uploadImage(this);
+    const imageUrl = await uploadImage(this);
+    const imgFilename = document.getElementById('imgFilename');
+    imgFilename.innerText = "Image uploaded successfully: \n" + devServerUrlPublic + "/" + imageFolderName + "/" + imageUrl;
+    //add to text field
+    const textF = document.getElementById('text field');
+    const text = textF.value;
+    textF.value = text + "\n" + "![Image](" + devServerUrlPublic + "/" + imageFolderName + "/" + imageUrl + ")";
 });
 async function uploadImage(form) {
     const url = 'http://127.0.0.1:8000/uploadfile/';
@@ -84,10 +97,28 @@ async function uploadImage(form) {
         }
         const result = await response.json();
         console.log('Upload successful:', result);
+        return result.filename;
     }
     catch {
         console.log("Something");
+        return "file upload failed";
     }
 }
+//changes the size of the text field to fit the content
+const textarea = document.getElementById('text field');
+textarea.addEventListener('input', () => {
+    // Reset height to auto to allow shrinking
+    textarea.style.height = 'auto';
+    // Set height to match the scroll height
+    textarea.style.height = textarea.scrollHeight + 'px';
+});
+//changes the size of the iframe to fit the content
+const iframe = document.getElementById('outputFrame');
+iframe.addEventListener('load', () => {
+    // Reset height to auto to allow shrinking
+    iframe.style.height = 'auto';
+    // Set height to match the scroll height
+    iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+});
 export {};
 //# sourceMappingURL=editpage.js.map
