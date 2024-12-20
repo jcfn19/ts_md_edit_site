@@ -66,6 +66,21 @@ function rootRoutedecompress(request, response) {
     response.send(decompressedData);
 }
 app.get('/decompressedtext', rootRoutedecompress);
+//function for getting date from db
+function rootRoutelastedited(request, response) {
+    const row = db.prepare('SELECT ldate FROM lastEdited ORDER BY lid DESC LIMIT 1').get();
+    console.log(row);
+    if (row && row.ldate) {
+        const date = new Date(row.ldate);
+        date.setHours(date.getHours() + 1); // Adjust for 1 hour difference
+        const info = date.toISOString().slice(0, 19).replace('T', ' ');
+        response.send(info);
+    }
+    else {
+        response.status(404).send('No data found');
+    }
+}
+app.get('/lasteditedtext', rootRoutelastedited);
 // checks if the user is logged in and sends the users role to editpage.js
 function rootRouterole(request, response) {
     if (request.session.logedin !== true) {
@@ -80,7 +95,7 @@ function rootRouterole(request, response) {
     }
 }
 app.get('/userroleraw', rootRouterole);
-//function for getting data from js & compresses it
+//function for getting data from js & compresses it, also gets when page was last modefied & inserts it to db
 function formhandlerfeedback(request, response) {
     const data = '' + (request.body.brukerveiledning);
     try {
@@ -88,8 +103,19 @@ function formhandlerfeedback(request, response) {
             throw new TypeError('Invalid data: Data must be a non-empty string.');
         }
         const compressedData = zlib.deflateSync(data).toString('base64');
-        const stmt = db.prepare('INSERT INTO usermanualt (umcontents) VALUES (?)');
-        stmt.run(compressedData);
+        const date = new Date();
+        const formattedDate = date.toISOString().slice(0, 19).replace('T', ' ');
+        // Start a transaction
+        const insertTransaction = db.transaction((data1, data2) => {
+            const stmt1 = db.prepare('INSERT INTO lastEdited (ldate) VALUES (?)');
+            stmt1.run(data1.column1);
+            const stmt2 = db.prepare('INSERT INTO usermanualt (umcontents) VALUES (?)');
+            stmt2.run(data2.column2);
+        });
+        // Execute the transaction
+        insertTransaction({ column1: formattedDate }, // Data for table1
+        { column2: compressedData } // Data for table2
+        );
         response.status(201).send("Compressed data sent"); //response created
     }
     catch (error) {

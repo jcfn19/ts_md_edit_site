@@ -27,7 +27,11 @@ main {
     top: 8px;
 }
 
-
+#printbtn{
+    position: absolute;
+    left: 60%;
+    top: 8px;
+}
 
 iframe {
 	resize: both;

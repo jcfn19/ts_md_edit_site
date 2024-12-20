@@ -2,7 +2,7 @@ console.log("hello world! js");
 const devServerUrlPublic = "http://localhost:3000/";
 const imageFolderName = "uploaded_images";
 let markDownTemp = ""; // global variabel for holding markdown
-//gets decompressed data from ts
+//gets decompressed data from server
 async function decompdataf() {
     const response = await fetch("/decompressedtext");
     const data = await response.text();
@@ -12,6 +12,16 @@ async function decompdataf() {
 }
 const updatebutton = document.getElementById('updatebtn');
 updatebutton.onclick = decompdataf;
+let datetemp = "";
+//gets date from server
+async function lasteditedf() {
+    const response = await fetch("/lasteditedtext");
+    const data = await response.text();
+    datetemp = data;
+    console.log("last modeified " + datetemp);
+    document.getElementById('pagelastm').innerHTML = "this page was last modeified on " + datetemp;
+}
+lasteditedf();
 //function for editing the markdown
 async function editf() {
     const response = await fetch("/userroleraw");
@@ -35,11 +45,6 @@ const editbutton = document.getElementById('editbtn');
 editbutton.onclick = editf;
 //takes the contents of text field into outputFrame
 function updateIframe() {
-    //check if marked is defined
-    if (typeof marked === 'undefined') {
-        console.log("marked is undefined");
-        return;
-    }
     const textF = document.getElementById('text field');
     const text = textF.value;
     const iframe = document.getElementById('outputFrame');
@@ -73,6 +78,23 @@ function savechangesf() {
 }
 const savecbutton = document.getElementById('savebtn');
 savecbutton.onclick = savechangesf;
+//prints the contents of the page
+function printcontentsf(contents) {
+    const contentElement = document.getElementById(contents);
+    if (!contentElement) {
+        console.error(`Element with id ${contents} not found.`);
+        return;
+    }
+    const content = contentElement.innerHTML;
+    const printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write('<html><head><title>Print</title></head><body>');
+    printWindow.document.write(content);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
+const printbutton = document.getElementById('printbtn');
+printbutton.onclick = () => printcontentsf('contents');
 const imgUploadForm = document.getElementById('imgUploadForm');
 imgUploadForm.addEventListener('submit', async function (e) {
     e.preventDefault();
