@@ -54,6 +54,12 @@ function updateIframe() {
 }
 const previewbutton = document.getElementById('previewbtn');
 previewbutton.onclick = updateIframe;
+function darkmodef() {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+}
+const darkmodebutton = document.getElementById('darkmodebtn');
+darkmodebutton.onclick = darkmodef;
 //sends the text to ts
 function savechangesf() {
     const textF = document.getElementById('text field');

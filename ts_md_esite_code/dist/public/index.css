@@ -1,3 +1,10 @@
+body {
+	padding: 25px;
+	background-color: white;
+	color: black;
+	font-size: 25px;
+}
+
 :root {
 	--document-background-color: #f0f0f0;
 	--document-font-size: 14px;
@@ -13,7 +20,16 @@ main {
 
 }
 
+.dark-mode {
+	background-color: black;
+	color: white;
+}
 
+#darkmodebtn {
+	position: absolute;
+	left: 90%;
+	top: 8px;
+}
 
 #editbtn{
     position: absolute;
