@@ -5,6 +5,39 @@ const db = sqlite3('brukerveiledning.db', { verbose: console.log });
 import session from 'express-session';
 import zlib from 'zlib';
 // if github freezes on sync changes/commit: git reset --soft HEAD~2
+// SET UP THE DATABASE
+const createTables = () => {
+    db.exec(`
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY,
+            uname TEXT NOT NULL,
+            upassword TEXT NOT NULL,
+            uuserrole TEXT
+        );
+        CREATE TABLE IF NOT EXISTS sidenavfile (
+            id INTEGER PRIMARY KEY,
+            sffile TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS usermanualt (
+            id INTEGER PRIMARY KEY,
+            umcontents TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS lastEdited (
+            id INTEGER PRIMARY KEY,
+            ldate TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS mdfiles (
+            id INTEGER PRIMARY KEY,
+            mdfilename TEXT NOT NULL,
+            mdfile TEXT NOT NULL,
+            mdfiledate TEXT NOT NULL
+
+        );
+
+
+    `);
+};
+createTables();
 app.use(session({
     secret: "qwerty",
     resave: false,
@@ -55,6 +88,50 @@ function formhandlerlog(request, response) {
     }
     console.log(request.session.logedin);
 }
+// function for getting all filenames from the db
+app.get('/allfilenames', (req, res) => {
+    const rows = db.prepare('SELECT mdfilename FROM mdfiles').all();
+    const filenames = rows.map((row) => row.mdfilename);
+    res.json(filenames);
+});
+// function for getting any file from the db
+app.get('/loadfile/:filename', (req, res) => {
+    const filename = req.params.filename;
+    const row = db.prepare('SELECT * FROM mdfiles WHERE mdfilename = ?').get(filename);
+    if (row && row.mdfile) {
+        res.send(row.mdfile);
+    }
+    else {
+        res.status(404).send('No data found');
+    }
+});
+// function for saving or updating the file in the db
+app.post('/savefile/:filename', (req, res) => {
+    const filename = req.params.filename;
+    const file = req.body.content;
+    console.log('filename: ' + filename);
+    console.log('file: ', file); // Log the actual object
+    const fileString = JSON.stringify(file);
+    try {
+        const stmt = db.prepare('SELECT * FROM mdfiles WHERE mdfilename = ?');
+        const row = stmt.get(filename);
+        if (row && row.mdfile) {
+            // Update the existing entry
+            const sql = db.prepare('UPDATE mdfiles SET mdfile = ?, mdfiledate = ? WHERE mdfilename = ?');
+            sql.run(fileString, new Date().toISOString(), filename);
+        }
+        else {
+            // Insert a new entry
+            const sql = db.prepare('INSERT INTO mdfiles (mdfilename, mdfile, mdfiledate) VALUES (?, ?, ?)');
+            sql.run(filename, fileString, new Date().toISOString());
+        }
+        res.status(200).json({ message: 'File saved successfully' });
+    }
+    catch (err) {
+        console.error('Database error:', err.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 app.post('/flogin', formhandlerlog);
 //function for decompressing the data & sending it to editpage.js
 function rootRoutedecompress(request, response) {
@@ -84,8 +161,7 @@ app.get('/lasteditedtext', rootRoutelastedited);
 // checks if the user is logged in and sends the users role to editpage.js
 function rootRouterole(request, response) {
     if (request.session.logedin !== true) {
-        response.redirect("/index.html");
-        return;
+        response.json({ message: 'Not logged in' });
     }
     else if (request.session.lrole) {
         response.json(request.session.lrole);
