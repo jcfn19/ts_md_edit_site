@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brukerveiledninger</title>
-    
+
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="menu.css">
     <link rel="stylesheet" href="./css/navbar.css">
@@ -14,9 +15,10 @@
     <script type="module" src="./editpage.js" defer></script>
     <script type="module" src="./menu.js" defer></script>
 </head>
+
 <body>
     <nav class="nav-bar">
-    <!--hamburger menu-->
+        <!--hamburger menu-->
         <span id="openNav">
             <div id="menuicon"></div>
             <div id="menuicon"></div>
@@ -27,7 +29,7 @@
     <main>
 
         <!--clicking on the update button without any data in db will return an error-->
-        <button id="updatebtn">update</button>
+        <!-- <button id="updatebtn">update</button> -->
         <button id="editbtn">edit</button>
         <button id="printbtn">print</button>
         <button id="darkmodebtn">dark mode</button>
@@ -35,13 +37,23 @@
         <div id="editcontents" style="display: none;">
 
             <div id="editor-tools">
-                <button id="previewbtn">Preview</button>
+                <!-- <button id="previewbtn">Preview</button> -->
+                 <button id="newDocumentBtn">New</button>
                 <button id="savebtn">Save changes</button>
-                <form id="imgUploadForm" action="http://127.0.0.1:8000/uploadfile/" enctype="multipart/form-data" method="post">
-                    <input name="file" type="file" id="inputimage">
-                    <button type="submit">Upload image</button>
-                </form>
-                <div id="imgFilename"></div>
+
+                <div id="imgUploadFormWrapper">
+
+                    <label for="imgUploadForm">Image upload</label>
+
+                    <form id="imgUploadForm" action="http://127.0.0.1:8000/uploadfile/" enctype="multipart/form-data"
+                        method="post">
+                        <input name="file" type="file" id="inputimage">
+                        <button type="submit">Upload image</button>
+                    </form>
+
+                    <div id="imgFilename"></div>
+
+                </div>
             </div>
 
             <div class="containers">
@@ -49,7 +61,7 @@
                     <textarea id="text field" class="editor-workspace"></textarea>
                 </div>
                 <div class="container">
-                    <iframe id="outputFrame"></iframe>
+                    <div id="outputFrame"></div>
                 </div>
             </div>
 
@@ -66,13 +78,26 @@
         <div id="sidenavbtns" style="display: none;">
             <input type="file" id="cnfbtn"><!--chose file-->
             <button id="unfbtn">upload new file</button><!--will take the input file & upload it once clicked-->
-            <button id="delfbtn">delete file</button><!--will delete files from the menu that are checked once clicked-->
+            <button id="delfbtn">delete
+                file</button><!--will delete files from the menu that are checked once clicked-->
         </div>
-        <a href="userguide.html">Home</a><!--can't delete home page/file-->
-        <a href="#">About</a> <input type="checkbox" id="" style="display: none;"><!--checkboxes will get generated when new files are uploaded-->
-        <a href="#">Clients</a> <input type="checkbox" id="" style="display: none;">
-        <a href="#">Contact</a> <input type="checkbox" id="" style="display: none;">
+
+        <div id="documentList">
+            <a href="userguide.html">Home</a><!--can't delete home page/file-->
+            <a href="#">About</a> <input type="checkbox" id=""
+                style="display: none;"><!--checkboxes will get generated when new files are uploaded-->
+            <a href="#">Clients</a> <input type="checkbox" id="" style="display: none;">
+            <a href="#">Contact</a> <input type="checkbox" id="" style="display: none;">
+
+
+            <p>Files on the server</p>
+
+
+        </div>
+
+
     </div>
 
 </body>
+
 </html>

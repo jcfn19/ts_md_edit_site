@@ -49,16 +49,44 @@ main {
     top: 8px;
 }
 
-iframe {
+#outputFrame {
 	resize: both;
+	background-color: var(--document-background-color);
+	font-size: var(--document-font-size);
+	border: 1px solid #000;
+	padding: 20px;
 }
 
 .containers {
 	display: flex;
+
 	border: 1px solid #000;
 
 	background-color: var(--navbar-bg-color-light);
 
+}
+
+#imgUploadFormWrapper {
+	
+	border: 1px solid #000;
+	color: white;
+	background-color: var(--navbar-bg-color-light);
+	display: flex;
+	align-items: center;
+	padding: 10px;
+
+}
+
+.documentListItem{
+	padding: 10px;
+	border: 1px solid #000;
+	background-color: var(--navbar-bg-color-light);
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: larger;
+	cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {
@@ -76,12 +104,6 @@ iframe {
 	flex-direction: column;
 	padding: 10px;
 	
-}
-
-.container iframe {
-	background-color: var(--document-background-color);
-	font-size: var(--document-font-size);
-	border: 1px solid #000;
 }
 
 
