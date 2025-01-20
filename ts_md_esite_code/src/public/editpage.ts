@@ -1,5 +1,3 @@
-
-
 const devServerUrlPublic = "http://localhost:3000/";
 const imageFolderName = "uploaded_images"
 
@@ -83,12 +81,6 @@ async function saveMarkDownToDB(filename: string, content: string) {
   console.log('File saved successfully');
 }
 
-
-
-
-
-// const updatebutton = document.getElementById('updatebtn') as HTMLButtonElement;
-// updatebutton.onclick = decompdataf;
 
 let datetemp = "";
 
@@ -329,6 +321,7 @@ iframe.addEventListener('load', () => {
 });
 
 
+
 async function loadAndDisplayCurrentFilesInNavn(){
 
   const documentList = document.getElementById('documentList') as HTMLDivElement;
@@ -348,14 +341,7 @@ async function loadAndDisplayCurrentFilesInNavn(){
     }
     documentList.appendChild(listItem);
   });
-
-
-
-
-
-
 }
-
 
 
 await loadAndDisplayCurrentFilesInNavn()
@@ -366,7 +352,3 @@ try {
 } catch (error) {
   alert('Vi fant ikke velkomstfilen. Lag en som med filnavn "Velkommen"');  
 }
-
-
-
-
