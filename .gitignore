@@ -2,5 +2,9 @@ node_modules/
 .venv
 __pycache__
 uploaded_images/
+<<<<<<< HEAD
 
+=======
+brukerveiledning.db
+>>>>>>> 93f9e7cc878a59da515f9870f55311b8f2406253
 mdfiles/
