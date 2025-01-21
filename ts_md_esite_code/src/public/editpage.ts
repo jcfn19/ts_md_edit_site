@@ -49,11 +49,29 @@ async function loadMarkDownFromDB(filename: string) {
   }
 
   const contentElement = document.getElementById('contents');
-    
-  currentMarkdownDocument = await response.json()
   
+  
+  const fileAndDate = await response.json()
+
+  console.log('fileAndDate', fileAndDate)
+
+  currentMarkdownDocument = fileAndDate.content;
+  
+
+  console.log('currentMarkdownDocument', currentMarkdownDocument)
+
   currentFileName = filename
   contentElement.innerHTML = marked.parse(currentMarkdownDocument);
+
+  const niceEuropeanDate = new Date(fileAndDate.date).toLocaleDateString('no-NO', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+
+
+  const dateElement = document.getElementById('pagelastm');
+  dateElement.innerHTML = "Last edited: " + niceEuropeanDate;
+
+
+
 }
 
 //makes a new file or updates an existing file
@@ -103,19 +121,19 @@ async function deletemarkdownf(filename: string) {
   console.log('File deleted successfully');
 }
 
-let datetemp = "";
+// let datetemp = "";
 
-//gets date from server
-async function lasteditedf() {
-  const response = await fetch("/lasteditedtext");
-  const data = await response.text();
+// //gets date from server
+// async function lasteditedf() {
+//   const response = await fetch("/lasteditedtext");
+//   const data = await response.text();
 
-  datetemp = data;
+//   datetemp = data;
 
-  console.log("last modeified " + datetemp);
+//   console.log("last modeified " + datetemp);
 
-  document.getElementById('pagelastm').innerHTML = "this page was last modeified on " + datetemp;
-}
+//   document.getElementById('pagelastm').innerHTML = "this page was last modeified on " + datetemp;
+// }
 
 
 
@@ -375,7 +393,7 @@ async function loadAndDisplayCurrentFilesInNavn(){
 
 
 await loadAndDisplayCurrentFilesInNavn()
-await lasteditedf();
+// await lasteditedf();
 
 try {
   await loadMarkDownFromDB("Velkommen");

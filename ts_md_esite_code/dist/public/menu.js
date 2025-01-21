@@ -36,8 +36,9 @@ async function editmenuf() {
     }
     else {
         localStorage.setItem('user_manual_role', 'notadmin');
-        alert("You do not have the required permissions to edit this page, or you may have been logged out. Please log in again to continue editing.");
-        return console.log("Invalid role: " + data);
+        const editbtn = document.getElementById('editbtn');
+        editbtn.style.display = "none";
+        return console.log("not admin");
     }
 }
 window.onload = editmenuf;

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brukerveiledninger</title>
 
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/menu.css">
     <link rel="stylesheet" href="./css/navbar.css">
     <link rel="stylesheet" href="./css/style.css">
 
@@ -19,41 +19,69 @@
 <body>
     <nav class="nav-bar">
         <!--hamburger menu-->
-        <span id="openNav">
-            <div id="menuicon"></div>
-            <div id="menuicon"></div>
-            <div id="menuicon"></div>
-        </span>
+        
+        <div id="logoAndBurgerWrapper">
+            
+                    <span id="openNav">
+                        <div id="menuicon"></div>
+                        <div id="menuicon"></div>
+                        <div id="menuicon"></div>
+                    </span>
+
+
+                    <div id="logo">
+                        <h1>Brukerveiledninger</h1>
+                    </div>
+
+        </div>
+
+
+
+
+        <div id="navbtns">
+            <button id="editbtn" class="bv-btns">Rediger</button>
+            <button id="printbtn" class="bv-btns">🖨️ Print </button>
+            <button id="darkmodebtn" class="bv-btns">Dark mode</button>
+
+        </div>
+
     </nav>
 
     <main>
 
         <!--clicking on the update button without any data in db will return an error-->
         <!-- <button id="updatebtn">update</button> -->
-        <button id="editbtn">edit</button>
-        <button id="printbtn">print</button>
-        <button id="darkmodebtn">dark mode</button>
 
         <div id="editcontents" style="display: none;">
 
             <div id="editor-tools">
                 <!-- <button id="previewbtn">Preview</button> -->
-                 <button id="newDocumentBtn">New</button>
-                <button id="savebtn">Save changes</button>
 
-                <div id="imgUploadFormWrapper">
+                <div id="editor-btns">
+                    <div>
+                    <button id="newDocumentBtn" class="bv-btns">Ny</button>
+                    <button id="savebtn" class="bv-btns">Lagre</button>
 
-                    <label for="imgUploadForm">Image upload</label>
 
-                    <form id="imgUploadForm" action="http://127.0.0.1:8000/uploadfile/" enctype="multipart/form-data"
-                        method="post">
-                        <input name="file" type="file" id="inputimage">
-                        <button type="submit">Upload image</button>
-                    </form>
 
-                    <div id="imgFilename"></div>
+                    </div>
 
+                    <div id="imgUploadFormWrapper">
+
+                        <label for="imgUploadForm">Bilde: </label>
+    
+                        <form id="imgUploadForm" action="http://127.0.0.1:8000/uploadfile/" enctype="multipart/form-data"
+                            method="post">
+                            <input class="custom-file-upload" name="file" type="file" id="inputimage">
+                            <button type="submit" class="bv-btns">Last opp</button>
+                        </form>
+    
+                        <div id="imgFilename"></div>
+    
+                    </div>
                 </div>
+
+                
             </div>
 
             <div class="containers">
@@ -74,27 +102,13 @@
     <!--exsampel template menu-->
     <div id="idSidenav" class="classSidenav">
         <button href="javascript:void(0)" class="closebtn" id="closeNav">&times;</button>
-        <button id="editmenubtn">edit file</button>
-        <div id="sidenavbtns" style="display: none;">
-            <input type="file" id="cnfbtn"><!--chose file-->
-            <button id="unfbtn">upload new file</button><!--will take the input file & upload it once clicked-->
-            <button id="delfbtn">delete
-                file</button><!--will delete files from the menu that are checked once clicked-->
-        </div>
+        <h2>Tema:</h2>   
 
         <div id="documentList">
-            <!--temp test sites-->
-            <a href="userguide.html">Home</a>
-            <a href="#">About</a> <input type="checkbox" id="" style="display: none;">
-            <a href="#">Clients</a> <input type="checkbox" id="" style="display: none;">
-            <a href="#">Contact</a> <input type="checkbox" id="" style="display: none;">
-
-            <p>Files on the server</p>
-
-
+              
         </div>
-
     </div>
 
 </body>
+
 </html>

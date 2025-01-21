@@ -1,3 +1,4 @@
+
 //function for opening/closing the menu
 function openNavf(): void {
     const sidenav = document.getElementById("idSidenav") as HTMLElement;
@@ -42,8 +43,11 @@ async function editmenuf(){
         });
     } else {
         localStorage.setItem('user_manual_role', 'notadmin');
-        alert("You do not have the required permissions to edit this page, or you may have been logged out. Please log in again to continue editing.");
-        return console.log("Invalid role: " + data);
+       
+        const editbtn = document.getElementById('editbtn') as HTMLButtonElement;
+        editbtn.style.display = "none";
+
+        return console.log("not admin");
     }
 }
 

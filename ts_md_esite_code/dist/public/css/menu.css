@@ -14,7 +14,8 @@
 }
   
 /* The navigation menu links */
-.classSidenav a {
+.classSidenav li,
+.classSidenav h2 {
 padding: 8px 8px 8px 32px;
 text-decoration: none;
 font-size: 25px;
@@ -22,9 +23,13 @@ color: #818181;
 display: block;
 transition: 0.3s;
 }
+
+.classSidenav h2{
+    margin-top: 0;
+}
   
 /* When you mouse over the navigation links, change their color */
-.classSidenav a:hover {
+.classSidenav li:hover {
 color: #f1f1f1;
 }
   
