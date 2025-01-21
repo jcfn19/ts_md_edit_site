@@ -4,6 +4,16 @@ import sqlite3 from 'better-sqlite3';
 const db = sqlite3('brukerveiledning.db', {verbose: console.log})
 import session from 'express-session';
 import zlib from 'zlib';
+import fs from 'fs';
+
+
+const mdFilesFolder = './public/mdfiles/';
+
+//make the folder for the md files if it doesn't exist
+
+if (!fs.existsSync(mdFilesFolder)) {
+    fs.mkdirSync(mdFilesFolder);
+}
 
 // if github freezes on sync changes/commit: git reset --soft HEAD~2
 
@@ -117,7 +127,16 @@ app.get('/loadfile/:filename', (req, res) => {
     const row: any = db.prepare('SELECT * FROM mdfiles WHERE mdfilename = ?').get(filename);
 
     if (row && row.mdfile) {
-        res.send(row.mdfile);
+
+
+   
+
+        const returnObject = {
+            content: row.mdfile,
+            date: row.mdfiledate
+        }
+
+        res.json(returnObject);
     } else {
         res.status(404).send('No data found');
     }
@@ -133,7 +152,7 @@ app.post('/savefile/:filename', (req, res) => {
     console.log('file: ', file); // Log the actual object
 
     
-    const fileString = JSON.stringify(file);
+    const fileString = file;
 
 
     try {
@@ -149,6 +168,20 @@ app.post('/savefile/:filename', (req, res) => {
             const sql = db.prepare('INSERT INTO mdfiles (mdfilename, mdfile, mdfiledate) VALUES (?, ?, ?)');
             sql.run(filename, fileString, new Date().toISOString());
         }
+
+
+        //save file to disk
+
+        const mdFileName = filename + '.md';
+
+        //check if file exists first
+        if (fs.existsSync(mdFilesFolder + mdFileName)) {
+            fs.writeFileSync(mdFilesFolder + mdFileName, fileString);
+        } else {
+            fs.writeFileSync(mdFilesFolder + mdFileName, fileString);
+        }
+    
+
 
         res.status(200).json({ message: 'File saved successfully' });
     } catch (err) {

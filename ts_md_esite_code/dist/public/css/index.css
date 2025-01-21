@@ -25,28 +25,23 @@ main {
 	color: white;
 }
 
-#darkmodebtn {
-	position: absolute;
-	left: 90%;
-	top: 8px;
+#navbtns{
+	display: flex;
+	align-items: center;
+	gap: 1em;
 }
 
-#editbtn{
-    position: absolute;
-    left: 40%;/* change to 1869 for when viewing on a monitor*/
-    top: 8px;
-}
 
-#updatebtn{
-    position: absolute;
-    left: 20%;
-    top: 8px;
-}
+.bv-btns{
+	background-color: transparent;
+	font-weight: bold;
+	border: 1px solid white;
+	color: white;
+	padding-inline: 0.5em;
+	height: 2em;
+	font-size: 1.5em;
+	vertical-align: middle;
 
-#printbtn{
-    position: absolute;
-    left: 60%;
-    top: 8px;
 }
 
 #outputFrame {
@@ -77,16 +72,40 @@ main {
 
 }
 
+
+#imgUploadForm{
+	display: flex;
+}
+
+.custom-file-upload {
+	display: flex;
+	border: 1px solid #000;
+	color: white;
+	background-color: var(--navbar-bg-color-light);
+	padding: 10px;
+	cursor: pointer;
+}
+
+
 .documentListItem{
 	padding: 10px;
 	border: 1px solid #000;
-	background-color: var(--navbar-bg-color-light);
 	color: white;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	font-size: larger;
 	cursor: pointer;
+}
+
+.documentListItem>button{
+	background-color: transparent;
+	border: 1px solid white;
+	color: white;
+	padding-inline: 0.2em;
+	height: 1em;
+	font-size: 0.5em;
+	vertical-align: middle;
 }
 
 @media screen and (max-width: 900px) {
@@ -106,14 +125,36 @@ main {
 	
 }
 
+#contents{
+	width: 70%;
+	margin-inline: auto;	
+	margin-top: 5em;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	padding-inline: 4em;
+}
 
+#pagelastm{
+	width: 70%;
+	margin-inline: auto;
+}
 
 #editor-tools{
 	margin-bottom: 10px;
 }
 
+#editor-btns{
+	
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	background-color: var(--navbar-bg-color-light);
+	padding-inline: 1em;
+	justify-content:space-between
+}
+
+
 .editor-workspace {
-	padding: 10px;
+	padding: 20px;
 	height: 100%;
 	background-color: var(--document-background-color);
 	font-size: var(--document-font-size);
